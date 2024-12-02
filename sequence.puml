@@ -1,0 +1,31 @@
+@startuml music
+
+skin rose
+
+autonumber
+
+actor User
+
+participant MA
+participant backend
+database DB
+
+activate User
+User->MA: Нажать кнопку "like"
+activate MA
+MA->backend: http-запрос
+activate backend
+backend->DB: SQL запрос на изменение данных
+activate DB
+DB->DB: Сохранение данных
+DB-->backend:ОК
+backend->DB: SQL запрос на получение данных
+DB-->backend: Возвращает набор данных
+deactivate DB
+backend-->MA: Возвращает json c ответом
+deactivate backend
+MA-->User: Изменить цвет кнопки "like", обновить список треков
+deactivate MA
+
+@enduml
+
